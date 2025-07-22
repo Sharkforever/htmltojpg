@@ -1,0 +1,9 @@
+{
+  "name": "html-to-jpg",
+  "version": "1.0.0",
+  "main": "api/capture.js",
+  "type": "module",
+  "dependencies": {
+    "puppeteer": "^21.3.8"
+  }
+}

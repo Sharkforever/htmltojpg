@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Me+ Card Capture</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+    .card-container {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    button { margin-top: 20px; padding: 10px 20px; border: none; background: #007bff; color: white; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <h2>Me+ 个人卡片</h2>
+    <p>这是一个示例卡片，可以导出为 JPG。</p>
+  </div>
+  <button onclick="captureAndDownload()">下载为 JPG</button>
+  <script>
+    async function captureAndDownload() {
+      const html = document.querySelector('.card-container').outerHTML;
+      const response = await fetch('/api/capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ html }),
+      });
+      const result = await response.json();
+      const link = document.createElement('a');
+      link.href = result.imageBase64;
+      link.download = `meplus-card-${Date.now()}.jpg`;
+      link.click();
+    }
+  </script>
+</body>
+</html>
